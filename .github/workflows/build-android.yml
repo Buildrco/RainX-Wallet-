@@ -1,0 +1,61 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install --no-package-lock --no-audit --no-fund
+
+      - name: Set up EAS CLI
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+
+      - name: Build preview APK with EAS
+        run: eas build --platform android --profile preview --message "GitHub Actions preview APK" --non-interactive --wait
+
+      - name: Find completed EAS build
+        run: eas build:list --platform android --build-profile preview --git-commit-hash "$GITHUB_SHA" --status finished --limit 1 --json > eas-build.json
+
+      - name: Download APK
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const parsed = JSON.parse(fs.readFileSync('eas-build.json', 'utf8'));
+          const builds = Array.isArray(parsed) ? parsed : (parsed.builds || parsed.data || []);
+          const build = builds[0];
+          const url = build && build.artifacts && build.artifacts.buildUrl;
+          if (!url) {
+            throw new Error('EAS returned no finished APK artifact URL');
+          }
+          fs.writeFileSync('apk-url.txt', url + '\n');
+          console.log('APK URL: ' + url);
+          NODE
+          curl --fail --location --retry 3 "$(cat apk-url.txt)" --output rainx-wallet-preview.apk
+          test -s rainx-wallet-preview.apk
+
+      - name: Upload APK artifact to GitHub Actions
+        uses: actions/upload-artifact@v4
+        with:
+          name: rainx-wallet-preview-apk
+          path: rainx-wallet-preview.apk
+          if-no-files-found: error
