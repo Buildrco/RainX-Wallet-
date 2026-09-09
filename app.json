@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "RainX Wallet",
+    "slug": "rainx-wallet",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "rainx",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.buildrco.rainxwallet",
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "Use Face ID to unlock your RainX wallet.",
+        "NSCameraUsageDescription": "Camera access is used to scan RainX addresses and QR codes."
+      }
+    },
+    "android": {
+      "package": "com.buildrco.rainxwallet",
+      "adaptiveIcon": {
+        "backgroundColor": "#0B0B0D",
+        "foregroundImage": "./assets/icon-foreground.png"
+      },
+      "permissions": ["android.permission.CAMERA"]
+    },
+    "plugins": [
+      "expo-secure-store",
+      "expo-local-authentication",
+      "expo-clipboard",
+      "expo-haptics"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "REPLACE_WITH_YOUR_EAS_PROJECT_ID"
+      }
+    }
+  }
+}
