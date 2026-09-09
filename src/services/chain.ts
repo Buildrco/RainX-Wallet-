@@ -75,7 +75,7 @@ export function parseRxc(input: string): bigint {
   const value = input.trim().replace(/,/g, '');
   if (!/^(?:\d+)(?:\.\d{0,8})?$/.test(value)) throw new Error('Enter a valid RXC amount (up to 8 decimals).');
   const [whole, frac = ''] = value.split('.');
-  const atomic = BigInt(whole) * COIN + BigInt((frac + '0'.repeat(DECIMALS)).slice(0, DECIMALS));
+  const atomic = BigInt(whole!) * COIN + BigInt((frac + '0'.repeat(DECIMALS)).slice(0, DECIMALS));
   if (atomic <= 0n) throw new Error('Amount must be greater than zero.');
   return atomic;
 }

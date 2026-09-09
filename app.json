@@ -6,7 +6,6 @@
     "orientation": "portrait",
     "scheme": "rainx",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.buildrco.rainxwallet",
@@ -25,14 +24,7 @@
     },
     "plugins": [
       "expo-secure-store",
-      "expo-local-authentication",
-      "expo-clipboard",
-      "expo-haptics"
-    ],
-    "extra": {
-      "eas": {
-        "projectId": "REPLACE_WITH_YOUR_EAS_PROJECT_ID"
-      }
-    }
+      "expo-local-authentication"
+    ]
   }
 }
