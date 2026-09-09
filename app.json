@@ -20,11 +20,25 @@
         "backgroundColor": "#0B0B0D",
         "foregroundImage": "./assets/icon-foreground.png"
       },
-      "permissions": ["android.permission.CAMERA"]
+      "permissions": [
+        "android.permission.CAMERA"
+      ]
     },
     "plugins": [
       "expo-secure-store",
       "expo-local-authentication"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "51c7f050-8d56-45e3-a045-1a03074dca3f"
+      }
+    },
+    "owner": "desmonegrace85",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/51c7f050-8d56-45e3-a045-1a03074dca3f"
+    }
   }
 }
