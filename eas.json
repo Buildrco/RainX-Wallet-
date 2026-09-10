@@ -11,6 +11,11 @@
         "buildType": "apk"
       },
       "node": "20.19.4",
+      "env": {
+        "NPM_CONFIG_PROGRESS": "false",
+        "NPM_CONFIG_AUDIT": "false",
+        "NPM_CONFIG_FUND": "false"
+      },
       "channel": "preview"
     },
     "production": {
