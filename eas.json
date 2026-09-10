@@ -10,6 +10,7 @@
       "android": {
         "buildType": "apk"
       },
+      "node": "20.19.0",
       "channel": "preview"
     },
     "production": {
